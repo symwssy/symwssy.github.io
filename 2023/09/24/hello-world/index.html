@@ -338,6 +338,18 @@
 
 </article>
     
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">I'm so cute. Please give me money.</p>
+        <div id="qr" style="display:none;">
+            
+        </div>
+    </div>
+
     
 
 </div>
@@ -386,6 +398,10 @@
 
     
 
+    <div class="trm-card trm-scroll-animation comment-container">
+    <com-comment env='' hash=''></com-comment>
+</div>
+
 
 
                     <div class="trm-divider footer-divider"></div>
@@ -411,10 +427,26 @@
         </div>
       
 
+    
+        <div class="trm-footer-item">
+            The blog has been lovely to run <span id="since" class="trm-accent-color"></span> day
+        </div>
      
 
      
 </footer>
+
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("09/24/2023 17:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
  
                     <!-- footer end -->
 
@@ -468,6 +500,11 @@
     <!-- 评论插件 -->
     
         
+
+        
+            
+<script src="//imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.1/cloudbase.full.js" data-swup-reload-script></script>
+<script src="https://unpkg.com/b-comments@0.0.13/dist/index.all.min.js" data-swup-reload-script></script>
 
         
     
