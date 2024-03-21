@@ -7,16 +7,23 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta name="description" content="文件系统、管道及权限① 列出&#x2F;etc目录下所有以 “.conf” 结尾的文件，并显示它们的详细信息。② 用 man 査看程序 touch 的使用手册。  man touch  ③ 在个人目录下新建名为 ouc 的目录和名为自己姓名的文件， 将以下内容写入该文件#!&#x2F;bin&#x2F;shcurl –head –silent http:&#x2F;&#x2F;it.ouc.edu.cn mkdir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GNU&#x2F;Linux shell">
+<meta property="og:url" content="http://example.com/2024/03/07/GNU-Linux-shell/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文件系统、管道及权限① 列出&#x2F;etc目录下所有以 “.conf” 结尾的文件，并显示它们的详细信息。② 用 man 査看程序 touch 的使用手册。  man touch  ③ 在个人目录下新建名为 ouc 的目录和名为自己姓名的文件， 将以下内容写入该文件#!&#x2F;bin&#x2F;shcurl –head –silent http:&#x2F;&#x2F;it.ouc.edu.cn mkdir">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-03-07T11:26:17.000Z">
+<meta property="article:modified_time" content="2024-03-07T12:17:22.416Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >Hexo</title>
+<title >GNU/Linux shell</title>
 
 <!-- Favicon -->
 
@@ -55,7 +62,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"John Doe","root":"/","typed_text":null,"theme_version":"2.1.1","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","appleTouchIcon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","showText":"(/≧▽≦/)Hey! Good again!","hideText":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":true,"postUpdate":"2024-03-21 18:49:18"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-03-07 20:17:22"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.1" id="trm-switch-style">
@@ -138,7 +145,7 @@
     <nav>
         <ul>
             
-            <li class="menu-item-has-children current-menu-item">
+            <li class="menu-item-has-children ">
                 <a  href="/" target="">
                     Home
                 </a>
@@ -192,7 +199,8 @@
             <!-- top bar end -->
 
             <!-- body -->
-            <div class="trm-content-start">
+            
+<div class="trm-content-start">
     <!-- banner -->
     <div class="trm-banner">
     
@@ -213,10 +221,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            Hi my new friend!
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            树深时见鹿，<br>溪午不闻钟。
+                            GNU/Linux shell
                         </h1>
 
                         
@@ -226,7 +234,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        index.html
+                                        2024
                                     </span>
                                 </li>
                             </ul>
@@ -302,62 +310,85 @@
             
             <div class="trm-page-content col-lg-8">
                 <div id="trm-content" class="trm-content">
-                    <!-- categories -->
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/07
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            19:26
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            John Doe
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h3 id="文件系统、管道及权限"><a href="#文件系统、管道及权限" class="headerlink" title="文件系统、管道及权限"></a>文件系统、管道及权限</h3><p>① 列出&#x2F;etc目录下所有以 “.conf” 结尾的文件，并显示它们的详细信息。<br><img src="E:\司雨萌\Documents\计算机系统工程导论\1.png" alt="1" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>② 用 man 査看程序 touch 的使用手册。</p>
+<ul>
+<li>man touch</li>
+</ul>
+<p>③ 在个人目录下新建名为 ouc 的目录和名为自己姓名的文件， 将以下内容写入该文件<br>#!&#x2F;bin&#x2F;sh<br>curl –head –silent <a target="_blank" rel="noopener" href="http://it.ouc.edu.cn/">http://it.ouc.edu.cn</a></p>
+<p><code>mkdir ~/ouc</code></p>
+<p><code>touch ~/sym </code></p>
+<p><code>echo &#39;#!/bin/sh&#39; &gt; ~/sym</code></p>
+<p>④ 将文件移动到ouc目录中，移动过程中改名为foo，查看foo的工作目录。</p>
+<p><code>mv ~/sym ~/ouc/foo</code></p>
+<p><code>pwd</code></p>
+<p>⑤ 直接执行foo命令，查看出错信息。用chmod为所有用户增加执行权限，再次运行。</p>
+<p><code>~/ouc/foo</code></p>
+<p><code>chmod +x ~/ouc/foo</code></p>
+<p><code>~/ouc/foo</code></p>
+<p>⑥ 将foo的输出结果重定向（&gt;）到resull文件。使用vim在result中将已有内容复制3遍。</p>
+<p><code>~/ouc/foo &gt; ~/ouc/result</code></p>
+<p><code>vim ~/ouc/result</code></p>
+<p>⑦ 使用cat、more和less命令查看foo文件，并观察三个命令的差别。</p>
+<p><code>cat ~/ouc/foo</code></p>
+<p><code>more ~/ouc/foo</code></p>
+<p> <code>less ~/ouc/foo</code></p>
+<p><img src="E:\司雨萌\Documents\计算机系统工程导论\差别.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>⑧ 使用管道命令，显示result的内容，并使用sort进行排序。</p>
+<p><code> cat ~/ouc/result | sort</code></p>
+<p>⑨ 强制删除ouc目录及其中的文件。</p>
+<p><code>rm -rf ~/ouc</code></p>
+<p>查看系统中所有网络接口的信息</p>
+<p><code>ifconfig</code></p>
+<p>显示在当前环境下某个命令（或符号链接）的路径</p>
+<p><code>which</code></p>
 
-    <div class="row hidden-sm">
+</article>
+    
+    <div class="trm-reward">
         
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
         
-        <div class="col-lg-6">
-            <!-- categories card -->
-<div class="trm-blog-categories trm-scroll-animation">
-    <h6>
-        学习笔记
-        <span class="trm-number">
-            1
-        </span>
-    </h6>
-    <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-    <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/." class="trm-label">
-        Read More 
-        <i class="iconfont fas fa-arrow-right arrow-right"></i>
-    </a>
-</div>
-<!-- categories card end -->
+        <p class="trm-reward-comment">I'm so cute. Please give me money.</p>
+        <div id="qr" style="display:none;">
+            
         </div>
-        
-        <div class="col-lg-6">
-            <!-- categories card -->
-<div class="trm-blog-categories trm-scroll-animation">
-    <h6>
-        算法
-        <span class="trm-number">
-            1
-        </span>
-    </h6>
-    <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-    <a href="/categories/%E7%AE%97%E6%B3%95/." class="trm-label">
-        Read More 
-        <i class="iconfont fas fa-arrow-right arrow-right"></i>
-    </a>
-</div>
-<!-- categories card end -->
-        </div>
-        
     </div>
 
-<!-- categories end -->
+    
 
-<!-- newest publications -->
-<div class="row">
-    
-        <div class="col-lg-12">
-            <!-- title -->
-            <h5 class="trm-title-with-divider">
-                Newest Publications 
-                <span data-number="01"></span>
-            </h5>
-        </div>
-    
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
@@ -390,36 +421,6 @@
     </div>
 </div>
     
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/03/07/GNU-Linux-shell/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" #.">
-                    Unclassified
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/03/07/GNU-Linux-shell/" class="trm-anima-link">
-                    GNU/Linux shell
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/03/07</li>
-                <li>19:26</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
@@ -452,75 +453,14 @@
     </div>
 </div>
     
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2023/12/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                    学习笔记
-                </a>
-            </div>
-            <h5>
-                <a href="/2023/12/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/" class="trm-anima-link">
-                    数据库复习
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>23/12/09</li>
-                <li>15:43</li>
-                
-                
-            </ul>
-        </div>
-    </div>
 </div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2023/09/24/hello-world/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" #.">
-                    Unclassified
-                </a>
-            </div>
-            <h5>
-                <a href="/2023/09/24/hello-world/" class="trm-anima-link">
-                    Introduction
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>23/09/24</li>
-                <li>17:09</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-</div>
-<!-- newest publications end -->
 
+    
 
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
-    </div>
+    <div class="trm-card trm-scroll-animation comment-container">
+    <com-comment env='' hash=''></com-comment>
+</div>
+
 
 
                     <div class="trm-divider footer-divider"></div>
@@ -582,6 +522,10 @@
 <div class="trm-fixed-container">
     
     
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
     
     <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
         <i class="iconfont fas fa-arrow-up"></i>
@@ -613,6 +557,15 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
+            
+<script src="//imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.1/cloudbase.full.js" data-swup-reload-script></script>
+<script src="https://unpkg.com/b-comments@0.0.13/dist/index.all.min.js" data-swup-reload-script></script>
+
+        
     
 
 
