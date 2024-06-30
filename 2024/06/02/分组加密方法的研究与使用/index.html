@@ -1,0 +1,642 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>分组加密算法 | Hexo</title><meta name="keywords" content="课程项目,项目报告,信息安全"><meta name="author" content="symwssy"><meta name="copyright" content="symwssy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="分组加密算法"><meta name="application-name" content="分组加密算法"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="分组加密算法"><meta property="og:url" content="https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html"><meta property="og:site_name" content="Hexo"><meta property="og:description" content="1.实验目的 理解对称加密算法中的5种分组模式。  掌握不同分组模式的特点。  基于C++、Java或.net等环境中成熟的对称加密库实现多种对称加密算法模式。   2.相关理论和实验环境2.1. 相关基本理论分组密码（Block Cipher）是一种对称加密算法，它将明文分成固定长度的块（通常为6"><meta property="og:locale" content="en"><meta property="og:image" content="https://symwssy.github.io/images/2.jpg"><meta property="article:author" content="symwssy"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://symwssy.github.io/images/2.jpg"><meta name="description" content="1.实验目的 理解对称加密算法中的5种分组模式。  掌握不同分组模式的特点。  基于C++、Java或.net等环境中成熟的对称加密库实现多种对称加密算法模式。   2.相关理论和实验环境2.1. 相关基本理论分组密码（Block Cipher）是一种对称加密算法，它将明文分成固定长度的块（通常为6"><link rel="shortcut icon" href="/images/happy.png"><link rel="canonical" href="https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":2},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","💢 壮汉人狠话不多"]},
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"Author: symwssy","link":"Link: ","source":"Source: Hexo","info":"Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.","copySuccess":"Copy success, copy and reprint please mark the address of this article"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'Hexo',
+  title: '分组加密算法',
+  postAI: '',
+  pageFillDescription: '1.实验目的, 2.相关理论和实验环境, 2.1. 相关基本理论, 1. 电子密码本模式（Electronic Codebook Mode ECB）, 2. 密文分组链接模式（Cipher Block Chaining Mode CBC）, 3. 密文反馈模式（Cipher Feedback Mode CFB）, 4. 输出反馈模式（Output Feedback Mode OFB）, 5. 计数器模式（Counter Mode CTR）, 分组模式对比表格, 2.2 实验环境构建, 1) 选择语言及原因, 2) 选择加密算法库, 3.实验内容和结果分析, 3.1 程序的设计和探索, 1) 实现加密x2F解密程序, 代码注释说明, 3. 实验内容和结果分析, 3.1. 程序的设计和实现框架, 3.2. 基本的分组加解密实验, 3.3. 分组模式的混用实验, 3.4. 明文-密文-分组模式的关联关系实验, 4.总结与展望实验目的理解对称加密算法中的种分组模式掌握不同分组模式的特点基于或等环境中成熟的对称加密库实现多种对称加密算法模式相关理论和实验环境相关基本理论分组密码是一种对称加密算法它将明文分成固定长度的块通常为或比特进行加密和解密分组密码的基本原理在于通过特定的算法将这些固定长度的块进行处理以确保数据的机密性和完整性分组密码算法的使用方式主要包括电码本工作模式密文分组链接工作模式密文反馈工作模式输出反馈工作模式计数器工作模式分组连接模式等以下是几种常见的分组模式电子密码本模式原理将明文分成固定长度的块每个块独立加密相同的明文块总是会被加密为相同的密文块优点简单易实现适用于短数据量加密每个明文小组的加密不依赖其他组可以并行处理缺点相同的明文块会产生相同的密文块容易被模式识别和分析安全性较低原理图密文分组链接模式原理在加密每个明文块之前将其与前一个密文块进行异或操作第一个明文块则与一个初始化向量进行异或操作优点每个明文块的加密结果都与前一个密文块有关提高了安全性相同的明文块在不同的上下文中会产生不同的密文块隐藏了明文的数据模式使攻击者很难进行统计猜测攻击缺点需要且加密过程必须按顺序进行不适合并行处理原理图密文反馈模式原理将一个密钥流与明文块进行异或操作生成密文块密钥流是通过将前一个密文块加密后得到的优点适合处理流数据可以生成任意长度的密文块缺点加密过程需要串行进行不适合并行处理原理图输出反馈模式原理与类似但密钥流是通过不断加密一个初始化向量生成的与明文无关优点可以生成预先计算好的密钥流适合并行处理能避免错误传播缺点可能对明文进行主动攻击存在输出反馈难以进行并行运算需要共同的移位寄存器初始值对于不同的消息必须唯一通信双方必须同步否则难以解密不过可以采用带有同步时钟的编码进行解决原理图计数器模式原理使用一个计数器值与密钥进行加密生成密钥流然后与明文块进行异或操作优点每个块的加密可以并行处理适合高性能需求只需保证计数器不重复即可保证安全性缺点需要维护一个唯一的计数器值原理图分组模式对比表格分组模式原理优点缺点独立加密每个块简单易实现支持并行计算易被模式识别安全性低每个块与前一个密文块异或安全性高能够解密任意密文分组需要不适合并行处理加密不支持并行计算利用前一个密文块生成密钥流适合流数据处理不需要填充能够解密任意密文分组不适合并行处理生成独立密钥流适合并行处理不需要填充加密解密使用相同的结构需要密钥流重复使用降低安全性不支持并行计算利用计数器生成密钥流适合高性能需求不需要填充加密解密使用相同的结构需要维护唯一计数器主动攻击者反转密文分组中的某些比特时明文分组中相对应的比特也会被反转实验环境构建选择语言及原因选择作为开发语言原因如下广泛用于企业级应用具有良好的跨平台性丰富的加密库和社区支持如包和第三方库已经安装配置过环境选择加密算法库选择内置的库包含常见的对称加密算法如此库可以设置不同的分组模式函数原型及参数设置加密模式填充分组模式参数示例模式模式模式模式模式实验内容和结果分析程序的设计和探索实现加密解密程序加载密钥处理两个明文文件读取明文文件混合模式加密将密文写入文件混合模式解密将解密后的明文写入文件从文件中读取密码并生成密钥使用哈希算法生成位的密钥读取指定文件的内容将内容写入指定文件使用指定模式对明文进行加密使用指定模式对密文进行解密根据模式获取实例并进行初始化非模式需要初始化向量使用混合模式对明文进行加密使用模式加密第一部分使用模式加密第二部分使用混合模式对密文进行解密使用模式解密第一部分使用模式解密第二部分代码注释说明加载密钥从读取密码并生成密钥读取文件从指定文件中读取明文或密文写入文件将加密后的密文或解密后的明文写入文件加密方法使用指定模式对明文进行加密解密方法使用指定模式对密文进行解密获取实例根据模式创建实例并进行初始化实验内容和结果分析程序的设计和实现框架正文内容本实验的目的是实现对称加密算法在五种不同分组模式下的加密和解密操作程序采用语言编写并使用内置的库来实现加密算法程序包括读取明文和密码加密存储密文解密以及输出结果的功能设计框架如下加载并解析密码文件生成密钥读取明文文件进行分组加密操作将加密后的密文保存到对应文件读取密文文件进行分组解密操作将解密后的明文输出到控制台和结果文件程序结构类包含主方法和加解密操作的方法方法从文件中读取密码并生成密钥方法读取指定文件的内容方法将内容写入指定文件和方法实现加密和解密操作方法根据分组模式初始化实例基本的分组加解密实验实验过程说明在本实验中分别使用五种分组模式对明文文件进行加密和解密具体步骤如下从和读取明文内容从读取加密密码并生成密钥使用五种分组模式对明文进行加密将密文分别存储在文件中从上述密文文件中读取密文内容使用相同的密码进行解密将解密后的明文输出到文件中结果展示及分析实验结果如下原始明文与解密后的明文一致验证了加密和解密操作的正确性不同分组模式的加密密文不同验证了各分组模式的独特性具体结果展示如下模式密文明文模式密文明文模式密文明文模式明文模式明文模式密文明文模式密文明文模式密文明文模式密文明文模式密文明文通过实验验证了不同分组模式在加密和解密操作中的独特表现同时保证了明文在加密和解密后的完整性分组模式的混用实验实验过程说明在本实验中尝试将不同的分组模式混合使用例如使用模式加密前一半明文使用模式加密后一半明文实验步骤如下从和读取明文内容将明文分成两部分前一半使用模式加密后一半使用模式加密将加密后的密文分别存储在文件中从密文文件中读取密文内容分别使用和模式进行解密将解密后的明文输出到文件中结果展示及分析实验结果如下原始明文与解密后的明文一致验证了分组模式混合使用的可行性混合模式下的密文仍然具备较高的安全性不同分组模式的组合增加了破解难度具体结果展示如下密文明文密文明文通过实验验证了分组模式的混用可以在保证安全性的同时增加灵活性并且保证了明文在加密和解密后的完整性明文密文分组模式的关联关系实验实验过程说明在本实验中研究不同分组模式下明文和密文之间的关联关系实验步骤如下从和读取明文内容分别使用五种分组模式对明文进行加密将密文存储在相应的文件中对比不同分组模式下密文的异同分析分组模式对密文模式的影响结果展示及分析实验结果如下不同分组模式下的密文差异明显验证了分组模式对密文模式的影响模式下相同的明文块产生相同的密文块其他模式则不会总结与展望分组密码是对称密码体制中的一种应用方式由于不同应用环境对解密过程的需求诞生了不同的工作模式随着信息技术的发展分组密码也在不断地完善和升级从而实现更高的效率更强的灵活性和安全性参考文献分组密码算法的工作模式张立廷信息安全技术一种分组密码的工作模式黄文庆中国高新技术企业分组密码工作模式的分析及应用刘平南阳理工学院学报',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-30 20:16:35',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><div class="back-home-button"><i class="anzhiyufont anzhiyu-icon-grip-vertical"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://symwssy.github.io/" title="博客"><img class="back-menu-item-icon" src="/images/happy.png" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div></div><a id="site-name" href="/" accesskey="h"><div class="title">Hexo</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/links/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> Newest Comments</span></div><div class="aside-list"><span>loading...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/GUI/" style="font-size: 1.05rem;">GUI<sup>1</sup></a><a href="/tags/Java/" style="font-size: 1.05rem;">Java<sup>1</sup></a><a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" style="font-size: 1.05rem;">信息安全<sup>3</sup></a><a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 1.05rem;">图像识别<sup>1</sup></a><a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" style="font-size: 1.05rem;">大模型应用<sup>1</sup></a><a href="/tags/%E8%AF%BE%E7%A8%8B%E9%A1%B9%E7%9B%AE/" style="font-size: 1.05rem;">课程项目<sup>5</sup></a><a href="/tags/%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" style="font-size: 1.05rem;">音乐播放器<sup>1</sup></a><a href="/tags/%E9%A1%B9%E7%9B%AE%E6%8A%A5%E5%91%8A/" style="font-size: 1.05rem;">项目报告<sup>5</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">June 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">4</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">March 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">December 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">May 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%AC%E7%A7%91%E9%A1%B9%E7%9B%AE/" itemprop="url">本科项目</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/%E8%AF%BE%E7%A8%8B%E9%A1%B9%E7%9B%AE/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>课程项目</span></a><a class="article-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E6%8A%A5%E5%91%8A/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>项目报告</span></a><a class="article-meta__tags" href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>信息安全</span></a></span></div></div><h1 class="post-title" itemprop="name headline">分组加密算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="post-meta-icon anzhiyufont anzhiyu-icon-calendar-days"></i><span class="post-meta-label">Created</span><time itemprop="dateCreated datePublished" datetime="2024-06-02T11:37:12.000Z" title="Created 2024-06-02 19:37:12">2024-06-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为青岛"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>青岛</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src="/../images/2.jpg"></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/"><header><a class="post-meta-categories" href="/categories/%E6%9C%AC%E7%A7%91%E9%A1%B9%E7%9B%AE/" itemprop="url">本科项目</a><a href="/tags/%E8%AF%BE%E7%A8%8B%E9%A1%B9%E7%9B%AE/" tabindex="-1" itemprop="url">课程项目</a><a href="/tags/%E9%A1%B9%E7%9B%AE%E6%8A%A5%E5%91%8A/" tabindex="-1" itemprop="url">项目报告</a><a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" tabindex="-1" itemprop="url">信息安全</a><h1 id="CrawlerTitle" itemprop="name headline">分组加密算法</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">symwssy</span><time itemprop="dateCreated datePublished" datetime="2024-06-02T11:37:12.000Z" title="undefined 2024-06-02 19:37:12">2024-06-02</time></header><h2 id="1-实验目的"><a href="#1-实验目的" class="headerlink" title="1.实验目的"></a>1.<strong>实验目的</strong></h2><ul>
+<li><p>理解对称加密算法中的5种分组模式。</p>
+</li>
+<li><p>掌握不同分组模式的特点。</p>
+</li>
+<li><p>基于C++、Java或.net等环境中成熟的对称加密库实现多种对称加密算法模式。</p>
+</li>
+</ul>
+<h2 id="2-相关理论和实验环境"><a href="#2-相关理论和实验环境" class="headerlink" title="2.相关理论和实验环境"></a>2.<strong>相关理论和实验环境</strong></h2><h3 id="2-1-相关基本理论"><a href="#2-1-相关基本理论" class="headerlink" title="2.1. 相关基本理论"></a>2.1. <strong>相关基本理论</strong></h3><p>分组密码（Block Cipher）是一种对称加密算法，它将明文分成固定长度的块（通常为64或128比特）进行加密和解密。分组密码的基本原理在于通过特定的算法将这些固定长度的块进行处理，以确保数据的机密性和完整性。分组密码算法的使用方式主要包括电码本工作模式、密文分组链接工作模式，密文反馈工作模式，输出反馈工作模式，计数器工作模式，分组连接模式等<sup> [1] </sup> 以下是几种常见的分组模式：</p>
+<h6 id="1-电子密码本模式（Electronic-Codebook-Mode-ECB）"><a href="#1-电子密码本模式（Electronic-Codebook-Mode-ECB）" class="headerlink" title="1. 电子密码本模式（Electronic Codebook Mode, ECB）"></a><strong>1. 电子密码本模式（Electronic Codebook Mode, ECB）</strong></h6><p><strong>原理</strong>：将明文分成固定长度的块，每个块独立加密。相同的明文块总是会被加密为相同的密文块。</p>
+<p><strong>优点</strong>：简单易实现，适用于短数据量加密。每个明文小组的加密不依赖其他组，可以并行处理<sup>[3]</sup>。</p>
+<p><strong>缺点</strong>：相同的明文块会产生相同的密文块，容易被模式识别和分析，安全性较低。</p>
+<p><strong>原理图</strong>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/ECB.png" alt="ECB"></p>
+<h6 id="2-密文分组链接模式（Cipher-Block-Chaining-Mode-CBC）"><a href="#2-密文分组链接模式（Cipher-Block-Chaining-Mode-CBC）" class="headerlink" title="2. 密文分组链接模式（Cipher Block Chaining Mode, CBC）"></a>2. 密文分组链接模式（Cipher Block Chaining Mode, CBC）</h6><p><strong>原理</strong>：在加密每个明文块之前，将其与前一个密文块进行异或（XOR）操作。第一个明文块则与一个初始化向量（IV）进行异或操作。</p>
+<p><strong>优点</strong>：每个明文块的加密结果都与前一个密文块有关，提高了安全性。相同的明文块在不同的上下文中会产生不同的密文块，隐藏了明文的数据模式，使攻击者很难进行统计、猜测攻击<sup>[3]</sup>。</p>
+<p><strong>缺点</strong>：需要IV，且加密过程必须按顺序进行，不适合并行处理。</p>
+<p><strong>原理图</strong>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CBC.png" alt="CBC"></p>
+<h6 id="3-密文反馈模式（Cipher-Feedback-Mode-CFB）"><a href="#3-密文反馈模式（Cipher-Feedback-Mode-CFB）" class="headerlink" title="3. 密文反馈模式（Cipher Feedback Mode, CFB）"></a>3. 密文反馈模式（Cipher Feedback Mode, CFB）</h6><p><strong>原理</strong>：将一个密钥流与明文块进行异或操作生成密文块。密钥流是通过将前一个密文块加密后得到的。</p>
+<p><strong>优点</strong>：适合处理流数据，可以生成任意长度的密文块。</p>
+<p><strong>缺点</strong>：加密过程需要串行进行，不适合并行处理。</p>
+<p><strong>原理图</strong>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CFB.png" alt="CFB"></p>
+<h6 id="4-输出反馈模式（Output-Feedback-Mode-OFB）"><a href="#4-输出反馈模式（Output-Feedback-Mode-OFB）" class="headerlink" title="4. 输出反馈模式（Output Feedback Mode, OFB）"></a>4. 输出反馈模式（Output Feedback Mode, OFB）</h6><p><strong>原理</strong>：与CFB类似，但密钥流是通过不断加密一个初始化向量（IV）生成的，与明文无关。</p>
+<p><strong>优点</strong>：可以生成预先计算好的密钥流，适合并行处理，能避免错误传播。</p>
+<p><strong>缺点</strong>：可能对明文进行主动攻击；存在输出反 馈，难以进行并行运算；需要共同的移位寄存器初始 值IV，对于不同的消息，IV必须唯一；通信双方必须 同步，否则难以解密，不过可以采用带有同步时钟的编码进行解决<sup>[2]</sup>。</p>
+<p><strong>原理图</strong>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/OFB.png" alt="OFB"></p>
+<h6 id="5-计数器模式（Counter-Mode-CTR）"><a href="#5-计数器模式（Counter-Mode-CTR）" class="headerlink" title="5. 计数器模式（Counter Mode, CTR）"></a>5. 计数器模式（Counter Mode, CTR）</h6><p><strong>原理</strong>：使用一个计数器值与密钥进行加密生成密钥流，然后与明文块进行异或操作。</p>
+<p><strong>优点</strong>：每个块的加密可以并行处理，适合高性能需求。只需保证计数器不重复，即可保证安全性。</p>
+<p><strong>缺点</strong>：需要维护一个唯一的计数器值。</p>
+<p><strong>原理图</strong>：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CTR.png" alt="CTR"></p>
+<h4 id="分组模式对比表格"><a href="#分组模式对比表格" class="headerlink" title="分组模式对比表格"></a>分组模式对比表格</h4><table>
+<thead>
+<tr>
+<th>分组模式</th>
+<th>原理</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ECB</td>
+<td>独立加密每个块</td>
+<td>简单易实现，支持并行计算</td>
+<td>易被模式识别，安全性低</td>
+</tr>
+<tr>
+<td>CBC</td>
+<td>每个块与前一个密文块异或</td>
+<td>安全性高，能够解密任意密文分组</td>
+<td>需要IV，不适合并行处理，加密不支持并行计算</td>
+</tr>
+<tr>
+<td>CFB</td>
+<td>利用前一个密文块生成密钥流</td>
+<td>适合流数据处理，不需要填充，能够解密任意密文分组</td>
+<td>不适合并行处理</td>
+</tr>
+<tr>
+<td>OFB</td>
+<td>生成独立密钥流</td>
+<td>适合并行处理，不需要填充，加密解密使用相同的结构</td>
+<td>需要IV，密钥流重复使用降低安全性，不支持并行计算</td>
+</tr>
+<tr>
+<td>CTR</td>
+<td>利用计数器生成密钥流</td>
+<td>适合高性能需求，不需要填充，加密解密使用相同的结构</td>
+<td>需要维护唯一计数器，主动攻击者反转密文分组中的某些比特时明文分组中相对应的比特也会被反转。</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-实验环境构建"><a href="#2-2-实验环境构建" class="headerlink" title="2.2 实验环境构建"></a>2.2 实验环境构建</h3><h4 id="1-选择语言及原因"><a href="#1-选择语言及原因" class="headerlink" title="1) 选择语言及原因"></a>1) 选择语言及原因</h4><p>选择Java作为开发语言，原因如下 ：</p>
+<ul>
+<li>Java广泛用于企业级应用，具有良好的跨平台性。</li>
+<li>丰富的加密库和社区支持，如<code>javax.crypto</code>包和第三方库BouncyCastle。</li>
+<li>已经安装配置过Java环境。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/image-20240601215705595.png" alt="image-20240601215705595"></p>
+<h4 id="2-选择加密算法库"><a href="#2-选择加密算法库" class="headerlink" title="2) 选择加密算法库"></a>2) 选择加密算法库</h4><p>选择Java内置的<code>javax.crypto</code>库，包含常见的对称加密算法如AES。此库可以设置不同的分组模式。</p>
+<p><strong>函数原型及参数设置</strong>：</p>
+<ul>
+<li>加密：<code>Cipher.getInstance(&quot;AES/模式/填充&quot;)</code></li>
+<li>分组模式参数示例：<ul>
+<li>ECB模式：<code>Cipher.getInstance(&quot;AES/ECB/PKCS5Padding&quot;)</code></li>
+<li>CBC模式：<code>Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;)</code></li>
+<li>CFB模式：<code>Cipher.getInstance(&quot;AES/CFB/PKCS5Padding&quot;)</code></li>
+<li>OFB模式：<code>Cipher.getInstance(&quot;AES/OFB/PKCS5Padding&quot;)</code></li>
+<li>CTR模式：<code>Cipher.getInstance(&quot;AES/CTR/NoPadding&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="3-实验内容和结果分析"><a href="#3-实验内容和结果分析" class="headerlink" title="3.实验内容和结果分析"></a>3.实验内容和结果分析</h2><h3 id="3-1-程序的设计和探索"><a href="#3-1-程序的设计和探索" class="headerlink" title="3.1 程序的设计和探索"></a>3.1 程序的设计和探索</h3><h4 id="1-实现加密-解密程序"><a href="#1-实现加密-解密程序" class="headerlink" title="1) 实现加密&#x2F;解密程序"></a>1) 实现加密&#x2F;解密程序</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> password_test1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.KeyGenerator;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.IvParameterSpec;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EncryptDecrypt</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 加载密钥</span></span><br><span class="line">            <span class="type">SecretKey</span> <span class="variable">key</span> <span class="operator">=</span> loadKey(<span class="string">&quot;password.txt&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 处理两个明文文件</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">2</span>; i++) &#123;</span><br><span class="line">                <span class="comment">// 读取明文文件</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">plaintext</span> <span class="operator">=</span> readFile(<span class="string">&quot;plaintext&quot;</span> + i + <span class="string">&quot;.txt&quot;</span>);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 混合模式加密</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">mixedCiphertext</span> <span class="operator">=</span> encryptMixed(plaintext, key);</span><br><span class="line">                <span class="comment">// 将密文写入文件</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">mixedCiphertextFile</span> <span class="operator">=</span> <span class="string">&quot;ciphertext-mixed&quot;</span> + i + <span class="string">&quot;.txt&quot;</span>;</span><br><span class="line">                writeFile(mixedCiphertextFile, mixedCiphertext);</span><br><span class="line">                System.out.println(<span class="string">&quot;Written mixed ciphertext to: &quot;</span> + mixedCiphertextFile);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 混合模式解密</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">mixedDecryptedText</span> <span class="operator">=</span> decryptMixed(mixedCiphertext, key);</span><br><span class="line">                <span class="comment">// 将解密后的明文写入文件</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">mixedResultFile</span> <span class="operator">=</span> <span class="string">&quot;result-mixed&quot;</span> + i + <span class="string">&quot;.txt&quot;</span>;</span><br><span class="line">                writeFile(mixedResultFile, mixedDecryptedText);</span><br><span class="line">                System.out.println(<span class="string">&quot;Written mixed decrypted text to: &quot;</span> + mixedResultFile);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从文件中读取密码并生成AES密钥</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SecretKey <span class="title function_">loadKey</span><span class="params">(String passwordFile)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> readFile(passwordFile);</span><br><span class="line">        <span class="type">byte</span>[] key = hashKey(password);</span><br><span class="line">        <span class="type">SecretKeySpec</span> <span class="variable">secretKey</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecretKeySpec</span>(key, <span class="string">&quot;AES&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> secretKey;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用SHA-256哈希算法生成256位的密钥</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] hashKey(String key) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">MessageDigest</span> <span class="variable">sha</span> <span class="operator">=</span> MessageDigest.getInstance(<span class="string">&quot;SHA-256&quot;</span>);</span><br><span class="line">        <span class="type">byte</span>[] keyBytes = key.getBytes(StandardCharsets.UTF_8);</span><br><span class="line">        <span class="keyword">return</span> sha.digest(keyBytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取指定文件的内容</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">readFile</span><span class="params">(String fileName)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(fileName));</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        String line;</span><br><span class="line">        <span class="keyword">while</span> ((line = reader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            sb.append(line);</span><br><span class="line">        &#125;</span><br><span class="line">        reader.close();</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将内容写入指定文件</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">writeFile</span><span class="params">(String fileName, String data)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">BufferedWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(<span class="keyword">new</span> <span class="title class_">FileWriter</span>(fileName));</span><br><span class="line">        writer.write(data);</span><br><span class="line">        writer.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用指定模式对明文进行加密</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encrypt</span><span class="params">(String plainText, SecretKey key, String mode)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> getCipherInstance(mode, Cipher.ENCRYPT_MODE, key);</span><br><span class="line">        <span class="type">byte</span>[] encryptedBytes = cipher.doFinal(plainText.getBytes());</span><br><span class="line">        <span class="keyword">return</span> Base64.getEncoder().encodeToString(encryptedBytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用指定模式对密文进行解密</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">decrypt</span><span class="params">(String cipherText, SecretKey key, String mode)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> getCipherInstance(mode, Cipher.DECRYPT_MODE, key);</span><br><span class="line">        <span class="type">byte</span>[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(cipherText));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(decryptedBytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据模式获取Cipher实例并进行初始化</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Cipher <span class="title function_">getCipherInstance</span><span class="params">(String mode, <span class="type">int</span> cipherMode, SecretKey key)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        String transformation;</span><br><span class="line">        <span class="keyword">if</span> (mode.equals(<span class="string">&quot;CTR&quot;</span>)) &#123;</span><br><span class="line">            transformation = <span class="string">&quot;AES/CTR/NoPadding&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            transformation = <span class="string">&quot;AES/&quot;</span> + mode + <span class="string">&quot;/PKCS5Padding&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Cipher</span> <span class="variable">cipher</span> <span class="operator">=</span> Cipher.getInstance(transformation);</span><br><span class="line">        <span class="keyword">if</span> (!mode.equals(<span class="string">&quot;ECB&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">// 非ECB模式需要初始化向量IV</span></span><br><span class="line">            <span class="type">IvParameterSpec</span> <span class="variable">ivSpec</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IvParameterSpec</span>(<span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">16</span>]);</span><br><span class="line">            cipher.init(cipherMode, key, ivSpec);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cipher.init(cipherMode, key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cipher;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用混合模式对明文进行加密</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encryptMixed</span><span class="params">(String plainText, SecretKey key)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">halfLength</span> <span class="operator">=</span> plainText.length() / <span class="number">2</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">firstHalf</span> <span class="operator">=</span> plainText.substring(<span class="number">0</span>, halfLength);</span><br><span class="line">        <span class="type">String</span> <span class="variable">secondHalf</span> <span class="operator">=</span> plainText.substring(halfLength);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 使用ECB模式加密第一部分</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">encryptedFirstHalf</span> <span class="operator">=</span> encrypt(firstHalf, key, <span class="string">&quot;ECB&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用CBC模式加密第二部分</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">encryptedSecondHalf</span> <span class="operator">=</span> encrypt(secondHalf, key, <span class="string">&quot;CBC&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> encryptedFirstHalf + encryptedSecondHalf;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用混合模式对密文进行解密</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">decryptMixed</span><span class="params">(String cipherText, SecretKey key)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">halfLength</span> <span class="operator">=</span> cipherText.length() / <span class="number">2</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">encryptedFirstHalf</span> <span class="operator">=</span> cipherText.substring(<span class="number">0</span>, halfLength);</span><br><span class="line">        <span class="type">String</span> <span class="variable">encryptedSecondHalf</span> <span class="operator">=</span> cipherText.substring(halfLength);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 使用ECB模式解密第一部分</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">decryptedFirstHalf</span> <span class="operator">=</span> decrypt(encryptedFirstHalf, key, <span class="string">&quot;ECB&quot;</span>);</span><br><span class="line">        <span class="comment">// 使用CBC模式解密第二部分</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">decryptedSecondHalf</span> <span class="operator">=</span> decrypt(encryptedSecondHalf, key, <span class="string">&quot;CBC&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> decryptedFirstHalf + decryptedSecondHalf;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码注释说明"><a href="#代码注释说明" class="headerlink" title="代码注释说明"></a>代码注释说明</h3><ul>
+<li><strong>加载密钥</strong>：从<code>password.txt</code>读取密码，并生成AES密钥。</li>
+<li><strong>读取文件</strong>：从指定文件中读取明文或密文。</li>
+<li><strong>写入文件</strong>：将加密后的密文或解密后的明文写入文件。</li>
+<li><strong>加密方法</strong>：使用指定模式对明文进行加密。</li>
+<li><strong>解密方法</strong>：使用指定模式对密文进行解密。</li>
+<li><strong>获取Cipher实例</strong>：根据模式创建Cipher实例，并进行初始化。</li>
+</ul>
+<h3 id="3-实验内容和结果分析-1"><a href="#3-实验内容和结果分析-1" class="headerlink" title="3. 实验内容和结果分析"></a>3. 实验内容和结果分析</h3><h4 id="3-1-程序的设计和实现框架"><a href="#3-1-程序的设计和实现框架" class="headerlink" title="3.1. 程序的设计和实现框架"></a>3.1. 程序的设计和实现框架</h4><p><strong>正文内容</strong>： 本实验的目的是实现对称加密算法（AES）在五种不同分组模式下的加密和解密操作。程序采用Java语言编写，并使用内置的<code>javax.crypto</code>库来实现加密算法。程序包括读取明文和密码、加密、存储密文、解密、以及输出结果的功能。</p>
+<p>设计框架如下：</p>
+<ol>
+<li>加载并解析密码文件，生成AES密钥。</li>
+<li>读取明文文件，进行分组加密操作。</li>
+<li>将加密后的密文保存到对应文件。</li>
+<li>读取密文文件，进行分组解密操作。</li>
+<li>将解密后的明文输出到控制台和结果文件。</li>
+</ol>
+<p>程序结构：</p>
+<ul>
+<li><code>EncryptDecrypt</code>类：包含主方法和加解密操作的方法。</li>
+<li><code>loadKey</code>方法：从文件中读取密码并生成密钥。</li>
+<li><code>readFile</code>方法：读取指定文件的内容。</li>
+<li><code>writeFile</code>方法：将内容写入指定文件。</li>
+<li><code>encrypt</code>和<code>decrypt</code>方法：实现加密和解密操作。</li>
+<li><code>getCipherInstance</code>方法：根据分组模式初始化Cipher实例。</li>
+</ul>
+<h4 id="3-2-基本的分组加解密实验"><a href="#3-2-基本的分组加解密实验" class="headerlink" title="3.2. 基本的分组加解密实验"></a>3.2. 基本的分组加解密实验</h4><p><strong>1) 实验过程说明</strong></p>
+<p>在本实验中，分别使用ECB、CBC、CFB、OFB、CTR五种分组模式对明文文件进行加密和解密。具体步骤如下：</p>
+<ol>
+<li>从<code>plaintext1.txt</code>和<code>plaintext2.txt</code>读取明文内容。</li>
+<li>从<code>password.txt</code>读取加密密码并生成AES密钥。</li>
+<li>使用五种分组模式对明文进行加密，将密文分别存储在<code>ciphertext-ecb.txt</code>、<code>ciphertext-cbc.txt</code>、<code>ciphertext-cfb.txt</code>、<code>ciphertext-ofb.txt</code>、<code>ciphertext-ctr.txt</code>文件中。</li>
+<li>从上述密文文件中读取密文内容，使用相同的密码进行解密，将解密后的明文输出到<code>result-ecb.txt</code>、<code>result-cbc.txt</code>、<code>result-cfb.txt</code>、<code>result-ofb.txt</code>、<code>result-ctr.txt</code>文件中。</li>
+</ol>
+<p><strong>2) 结果展示及分析</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/image-20240601143536579.png" alt="image-20240601143536579"></p>
+<p>实验结果如下：</p>
+<ul>
+<li>原始明文与解密后的明文一致，验证了加密和解密操作的正确性。</li>
+<li>不同分组模式的加密密文不同，验证了各分组模式的独特性。</li>
+</ul>
+<p>具体结果展示如下：</p>
+<p>plaintext1.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Another line of text for testing.</span><br><span class="line">This is the second plaintext file used in the encryption and decryption test.</span><br></pre></td></tr></table></figure>
+
+<p>ECB模式：</p>
+<ul>
+<li><p>密文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G0QfajFVT+RFCa4S8UC67WjKpbWTLlorveZTnr1TQYEzfCsX9yUwwKubl4fxry/KiRVtVUSYmSj+NuyuQ7mkW1nCLGoKTQCdUmypt+I4iML3hsfEkI7dvBgTgM3s5670</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>明文：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, this is a test message.This message is used for encryption and decryption testing.</span><br></pre></td></tr></table></figure>
+
+<p>CBC模式：</p>
+<ul>
+<li>密文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G0QfajFVT+RFCa4S8UC67W1mFf0BtqJYhNeO/EntI9D/bN4cAVI/nVqqaESieE7eA/f4vUalFVPI0VVNhUQCYpgMq6y+xaMCHtabELKJ4EFrWAbelxC29f7adJNhIF0J</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>明文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, this is a test message.This message is used for encryption and decryption testing.</span><br></pre></td></tr></table></figure>
+
+<p>CFB模式：</p>
+<ul>
+<li>密文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0pztM7tv+YFL6Rm2eBSAXkgRIQmW3Jcb/Die5huy+lvuJ/cy1x2IkRxt+vOBVL7dO5GFTKo0GK/nBzTPwngp0ueEssriTWEUo2K9P5l/pjKv8PBohiLkZYH4D/ftozq9</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明文<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, this is a test message.This message is used for encryption and decryption testing.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>OFB模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0pztM7tv+YFL6Rm2eBSAXi5Jl6PtgJ820fZzhBIxd01W2R7HuuEyTG1QfEdWrFxTjyFFQfcWIPbKAPb11t9UQ1TW6Sez92L5nshaQcRR2Tw/6muF1K7uRIA8xoWG8kv+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明文<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, this is a test message.This message is used for encryption and decryption testing.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>CTR模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0pztM7tv+YFL6Rm2eBSAXvvDDsxXjfny1R4ryiml7riLlUOFDx2DsNpzfOSVlA/+UsfcYxH7jVwrgXLYRFSGROUzWFiPecJspjYqZWK6rlNAqTTJf2pzcIs=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明文<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, this is a test message.This message is used for encryption and decryption testing.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>plaintext2.txt</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="C:\Users\司雨萌\AppData\Roaming\Typora\typora-user-images\image-20240601203927068.png" alt="image-20240601203927068"></p>
+<p>ECB模式：</p>
+<ul>
+<li><p>密文</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t/Hqwwagwy9ReH/ZlvosEPca7jvFGHWlvmeYeXqqgxSiTicxxX6QWkyliA50zQnesZnLHf6/aVze8gSrNCmyT7JPbEO5MFWwvenK0LD2rHnoq35qn3WW56/7tz0vvqJqaCOZT5uJBIJL2GSZlcQKEw==</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>明文：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Another line of text for testing.This is the second plaintext file used in the encryption and decryption test.</span><br></pre></td></tr></table></figure>
+
+<p>CBC模式：</p>
+<ul>
+<li>密文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t/Hqwwagwy9ReH/ZlvosEDBT37cc0qETXpztVEh7qloLMqKF1iDTH0hd5iYROtzJ51glcPA6VkMJHKP1fitj79GKBsANGf7NhDqDG/cXKZasg8JEYHcgxPMkuepf8iyS1evKpaxgpau4BbjRCIiopg==</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>明文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Another line of text for testing.This is the second plaintext file used in the encryption and decryption test.</span><br></pre></td></tr></table></figure>
+
+<p>CFB模式：</p>
+<ul>
+<li>密文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0pztM7tv+YFL6Rm2eBSAXkgRIQmW3Jcb/Die5huy+lvuJ/cy1x2IkRxt+vOBVL7dO5GFTKo0GK/nBzTPwngp0ueEssriTWEUo2K9P5l/pjKv8PBohiLkZYH4D/ftozq9</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明文<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25fuK7wmq9VP6QTzMQjGH5YzBdWjQGJJ2lC/4nxEq4cXQbZY0vXFXQdyFd1+jWHBGPmHDplI6x0Yk3QnWZbwR2hvC5gBBZ/OALDUjunwmqq0q1rFk2JEKWkjZ4cqxlTTcW3F8DFcG0rp8Ko4cJ81Aw==</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>OFB模式：</p>
+<ul>
+<li>密文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25fuK7wmq9VP6QTzMQjGH3pYiqS5xp0hgvF3kAN2TUIR/lbDrLIoXipBNEsF/0xDhSsBB+gIYfrKF+H00otbRVaTqDyksmK8lNQDRdhdljdx/XyP0LPpTMAboOzl1SicZL8NvlZZt/oIU0lOs1t+dQ==</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明文<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Another line of text for testing.This is the second plaintext file used in the encryption and decryption test.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>CTR模式：</p>
+<ul>
+<li>密文</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25fuK7wmq9VP6QTzMQjGH6/SE8sDy/vlhhkv3jji1LfMsguBGU6Zop1iNOjGxx/uWM2YJQ7lzFArlmXZQACJQud2GUOYPMIprCpzYX624VgOviPDe3d0eMvu6HvtGDS8ETTn1nBTJhJ+H15EcC4=</span><br></pre></td></tr></table></figure>
+<ul>
+<li>明文<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Another line of text for testing.This is the second plaintext file used in the encryption and decryption test.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>通过实验验证了不同分组模式在加密和解密操作中的独特表现，同时保证了明文在加密和解密后的完整性。</p>
+<h4 id="3-3-分组模式的混用实验"><a href="#3-3-分组模式的混用实验" class="headerlink" title="3.3. 分组模式的混用实验"></a>3.3. 分组模式的混用实验</h4><p><strong>1) 实验过程说明</strong></p>
+<p> 在本实验中，尝试将不同的分组模式混合使用。例如，使用ECB模式加密前一半明文，使用CBC模式加密后一半明文。实验步骤如下：</p>
+<ol>
+<li>从<code>plaintext1.txt</code>和<code>plaintext2.txt</code>读取明文内容。</li>
+<li>将明文分成两部分，前一半使用ECB模式加密，后一半使用CBC模式加密。</li>
+<li>将加密后的密文分别存储在<code>ciphertext-mixed.txt</code>文件中。</li>
+<li>从密文文件中读取密文内容，分别使用ECB和CBC模式进行解密，将解密后的明文输出到<code>result-mixed.txt</code>文件中。</li>
+</ol>
+<p><strong>2) 结果展示及分析</strong></p>
+<p>实验结果如下：</p>
+<ul>
+<li>原始明文与解密后的明文一致，验证了分组模式混合使用的可行性。</li>
+<li>混合模式下的密文仍然具备较高的安全性，不同分组模式的组合增加了破解难度。</li>
+</ul>
+<p>具体结果展示如下：</p>
+<p>​                 plaintest1</p>
+<ul>
+<li><p>密文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">G0QfajFVT+RFCa4S8UC67WjKpbWTLlorveZTnr1TQYFtmEGJqvJOV4KxJCyYuktGedwxwrVZniGHGa1507W51ZK+I8TTXUSStM6RsL3Ame8GaozBWehEjDcw7ipyu1Qv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>明文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, this is a test message.This message is used for encryption and decryption testing.</span><br></pre></td></tr></table></figure>
+<p>plaintext2：</p>
+</li>
+<li><p>密文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t/Hqwwagwy9ReH/ZlvosEPca7jvFGHWlvmeYeXqqgxSiTicxxX6QWkyliA50zQne/Mgd96IdpLKtOYPIuhojdQ==nvTGG17OlCb4XSlNFlYJW1t0JoDH14cf98/aloTq0/Sl0AIgTN5YXRFEB4EmXwVxxfDE4WxhA0z02/GPY0G+dw==</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>明文：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Another line of text for testing.This is the second plaintext file used in the encryption and decryption test.</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>通过实验验证了分组模式的混用可以在保证安全性的同时增加灵活性，并且保证了明文在加密和解密后的完整性。</p>
+<h4 id="3-4-明文-密文-分组模式的关联关系实验"><a href="#3-4-明文-密文-分组模式的关联关系实验" class="headerlink" title="3.4. 明文-密文-分组模式的关联关系实验"></a>3.4. 明文-密文-分组模式的关联关系实验</h4><p><strong>1) 实验过程说明</strong></p>
+<p>在本实验中，研究不同分组模式下明文和密文之间的关联关系。实验步骤如下：</p>
+<ol>
+<li>从<code>plaintext1.txt</code>和<code>plaintext2.txt</code>读取明文内容。</li>
+<li>分别使用五种分组模式对明文进行加密，将密文存储在相应的文件中。</li>
+<li>对比不同分组模式下密文的异同，分析分组模式对密文模式的影响。</li>
+</ol>
+<p><strong>2) 结果展示及分析</strong></p>
+<p>实验结果如下：</p>
+<ul>
+<li>不同分组模式下的密文差异明显，验证了分组模式对密文模式的影响。</li>
+<li>ECB模式下相同的明文块产生相同的密文块，其他模式则不会。</li>
+</ul>
+<h2 id="4-总结与展望"><a href="#4-总结与展望" class="headerlink" title="4.总结与展望"></a>4.总结与展望</h2><p>分组密码是对称密码体制中的一种应用方式，由于不同应用环境对解密过程的需求诞生了不同的工作模式。随着信息技术的发展，分组密码也在不断地完善和升级，从而实现更高的效率，更强的灵活性和安全性。</p>
+<p>参考文献</p>
+<p>[1] 分组密码算法的工作模式.张立廷. 信息安全技术，2021（1）</p>
+<p>[2] 一种分组密码的工作模式.黄文庆.中国高新技术企业，2011（1）</p>
+<p>[3] 分组密码工作模式的分析及应用.刘平.南阳理工学院学报,2013（2）</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/images/happy.png" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/images/happy.png" title="头像" alt="头像"></a><div class="post-copyright__author_name">symwssy</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/')">分组加密算法</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=分组加密算法&amp;url=https://symwssy.github.io/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/&amp;pic=/../images/2.jpg" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/%E8%AF%BE%E7%A8%8B%E9%A1%B9%E7%9B%AE/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>课程项目<span class="tagsPageCount">5</span></a><a class="post-meta__box__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E6%8A%A5%E5%91%8A/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>项目报告<span class="tagsPageCount">5</span></a><a class="post-meta__box__tags" href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>信息安全<span class="tagsPageCount">3</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="/../images/K.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/03/21/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%AE%9E%E9%AA%8C%E4%BA%8C/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/img/R.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">图像处理实验二</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/07/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/3.jpg" onerror="onerror=null;src='/images/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">公钥密码算法的研究与使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/06/21/%E5%AE%9E%E9%AA%8C3%20%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5/" title="分组加密算法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/R.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-06-21</div><div class="title">分组加密算法</div></div></a></div><div><a href="/2024/06/07/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="公钥密码算法的研究与使用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-06-07</div><div class="title">公钥密码算法的研究与使用</div></div></a></div><div><a href="/2023/05/17/Java-GUI-%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" title="Java GUI——音乐播放器"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/R.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-05-17</div><div class="title">Java GUI——音乐播放器</div></div></a></div><div><a href="/2024/06/30/21%E7%B1%BB%E9%B8%9F%E7%B1%BB%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" title="21类鸟类图像识别"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/K.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-06-30</div><div class="title">21类鸟类图像识别</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/images/happy.png" onerror="this.onerror=null;this.src='/images/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/08/24/64e6ce9c507bb.png" alt="status"/></div></div><div class="author-info__description"><div style="line-height:1.38;margin:0.6rem 0;text-align:justify;color:rgba(255, 255, 255, 0.8);">任何时间<b style="color:#fff">   </b>任何地点<b style="color:#fff">超级咸鱼</b><b style="color:#fff">一定上岸</b>。</div></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(/images/happy.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.</span> <span class="toc-text">1.实验目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA%E5%92%8C%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">2.相关理论和实验环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%9B%B8%E5%85%B3%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 相关基本理论</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E7%94%B5%E5%AD%90%E5%AF%86%E7%A0%81%E6%9C%AC%E6%A8%A1%E5%BC%8F%EF%BC%88Electronic-Codebook-Mode-ECB%EF%BC%89"><span class="toc-number">2.1.0.0.1.</span> <span class="toc-text">1. 电子密码本模式（Electronic Codebook Mode, ECB）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E5%AF%86%E6%96%87%E5%88%86%E7%BB%84%E9%93%BE%E6%8E%A5%E6%A8%A1%E5%BC%8F%EF%BC%88Cipher-Block-Chaining-Mode-CBC%EF%BC%89"><span class="toc-number">2.1.0.0.2.</span> <span class="toc-text">2. 密文分组链接模式（Cipher Block Chaining Mode, CBC）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E5%AF%86%E6%96%87%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F%EF%BC%88Cipher-Feedback-Mode-CFB%EF%BC%89"><span class="toc-number">2.1.0.0.3.</span> <span class="toc-text">3. 密文反馈模式（Cipher Feedback Mode, CFB）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E8%BE%93%E5%87%BA%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F%EF%BC%88Output-Feedback-Mode-OFB%EF%BC%89"><span class="toc-number">2.1.0.0.4.</span> <span class="toc-text">4. 输出反馈模式（Output Feedback Mode, OFB）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E8%AE%A1%E6%95%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%88Counter-Mode-CTR%EF%BC%89"><span class="toc-number">2.1.0.0.5.</span> <span class="toc-text">5. 计数器模式（Counter Mode, CTR）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E6%A8%A1%E5%BC%8F%E5%AF%B9%E6%AF%94%E8%A1%A8%E6%A0%BC"><span class="toc-number">2.1.1.</span> <span class="toc-text">分组模式对比表格</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BA"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 实验环境构建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%80%89%E6%8B%A9%E8%AF%AD%E8%A8%80%E5%8F%8A%E5%8E%9F%E5%9B%A0"><span class="toc-number">2.2.1.</span> <span class="toc-text">1) 选择语言及原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%80%89%E6%8B%A9%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E5%BA%93"><span class="toc-number">2.2.2.</span> <span class="toc-text">2) 选择加密算法库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9%E5%92%8C%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">3.实验内容和结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%8E%A2%E7%B4%A2"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 程序的设计和探索</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%AF%86-%E8%A7%A3%E5%AF%86%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.1.1.</span> <span class="toc-text">1) 实现加密&#x2F;解密程序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B3%A8%E9%87%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">3.2.</span> <span class="toc-text">代码注释说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9%E5%92%8C%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90-1"><span class="toc-number">3.3.</span> <span class="toc-text">3. 实验内容和结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%A1%86%E6%9E%B6"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.1. 程序的设计和实现框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%88%86%E7%BB%84%E5%8A%A0%E8%A7%A3%E5%AF%86%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.2. 基本的分组加解密实验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E5%88%86%E7%BB%84%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%B7%B7%E7%94%A8%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.3.3.</span> <span class="toc-text">3.3. 分组模式的混用实验</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E6%98%8E%E6%96%87-%E5%AF%86%E6%96%87-%E5%88%86%E7%BB%84%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB%E5%AE%9E%E9%AA%8C"><span class="toc-number">3.3.4.</span> <span class="toc-text">3.4. 明文-密文-分组模式的关联关系实验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-number">4.</span> <span class="toc-text">4.总结与展望</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/30/21%E7%B1%BB%E9%B8%9F%E7%B1%BB%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" title="21类鸟类图像识别"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/K.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="21类鸟类图像识别"/></a><div class="content"><a class="title" href="/2024/06/30/21%E7%B1%BB%E9%B8%9F%E7%B1%BB%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" title="21类鸟类图像识别">21类鸟类图像识别</a><time datetime="2024-06-30T11:37:12.000Z" title="Created 2024-06-30 19:37:12">2024-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/21/%E5%AE%9E%E9%AA%8C3%20%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5/" title="分组加密算法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/R.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分组加密算法"/></a><div class="content"><a class="title" href="/2024/06/21/%E5%AE%9E%E9%AA%8C3%20%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5/" title="分组加密算法">分组加密算法</a><time datetime="2024-06-21T11:37:12.000Z" title="Created 2024-06-21 19:37:12">2024-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/07/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="公钥密码算法的研究与使用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/3.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="公钥密码算法的研究与使用"/></a><div class="content"><a class="title" href="/2024/06/07/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="公钥密码算法的研究与使用">公钥密码算法的研究与使用</a><time datetime="2024-06-07T11:37:12.000Z" title="Created 2024-06-07 19:37:12">2024-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="分组加密算法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/../images/2.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="分组加密算法"/></a><div class="content"><a class="title" href="/2024/06/02/%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="分组加密算法">分组加密算法</a><time datetime="2024-06-02T11:37:12.000Z" title="Created 2024-06-02 19:37:12">2024-06-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/21/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%AE%9E%E9%AA%8C%E4%BA%8C/" title="图像处理实验二"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/img/R.jpg" onerror="this.onerror=null;this.src='/images/404.jpg'" alt="图像处理实验二"/></a><div class="content"><a class="title" href="/2024/03/21/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%AE%9E%E9%AA%8C%E4%BA%8C/" title="图像处理实验二">图像处理实验二</a><time datetime="2024-03-21T06:30:23.000Z" title="Created 2024-03-21 14:30:23">2024-03-21</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="symwssy" target="_blank">symwssy</a></div></div><div id="footer-type-tips"></div><div class="js-pjax"><script>function subtitleType () {
+  getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js').then(() => {
+    jinrishici.load(result =>{
+      if (true) {
+        const sub = []
+        const content = result.data.content
+        sub.unshift(content)
+        window.typed = new Typed('#footer-type-tips', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('footer-type-tips').innerHTML = result.data.content
+      }
+    })
+  })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.cbd.int/typed.js@2.1.0/dist/typed.umd.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="啦啦啦">啦啦啦</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/" title="tag"><div class="headline">Tags</div><div class="length-num">8</div></a><a href="/categories/" title="category"><div class="headline">Categories</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">Function</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="Display Mode"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>Display Mode</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" href="https://symwssy.github.io/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="/images/happy.png" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/images/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/links/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/GUI/" style="font-size: 0.88rem;">GUI<sup>1</sup></a><a href="/tags/Java/" style="font-size: 0.88rem;">Java<sup>1</sup></a><a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" style="font-size: 0.88rem;">信息安全<sup>3</sup></a><a href="/tags/%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/" style="font-size: 0.88rem;">图像识别<sup>1</sup></a><a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8/" style="font-size: 0.88rem;">大模型应用<sup>1</sup></a><a href="/tags/%E8%AF%BE%E7%A8%8B%E9%A1%B9%E7%9B%AE/" style="font-size: 0.88rem;">课程项目<sup>5</sup></a><a href="/tags/%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" style="font-size: 0.88rem;">音乐播放器<sup>1</sup></a><a href="/tags/%E9%A1%B9%E7%9B%AE%E6%8A%A5%E5%91%8A/" style="font-size: 0.88rem;">项目报告<sup>5</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 symwssy 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
